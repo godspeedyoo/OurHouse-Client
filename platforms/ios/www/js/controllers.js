@@ -132,7 +132,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
     store.remove('refreshToken');
     store.remove('currentUser');
     $state.go('login');
-  }
+  };
 })
 
 // ******************************** HOUSEMATE CONTROLLER *******************************************
@@ -272,11 +272,11 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 // ******************************** PAYMENT CONTROLLER ********************************************
 .controller('PaymentCtrl', function($scope, userFactory, paymentService, auth, store, $state, $http, $ionicPopup){
 
+  $scope.currentUser = store.get('currentUser');
   $scope.payment = {}
   userFactory.getHousemates().then(function(data){
     $scope.housemates = data
   })
-  $scope.currentUser = store.get('currentUser');
 
   $scope.sendPayment = function(receiver) {
     $scope.payment.email = receiver.email;
@@ -296,6 +296,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
       store.set('currentUser', response.data);
       $scope.currentUser = store.get('currentUser');
       $scope.ass = true;
+      $scope.createdVenmo = true;
       $scope.$broadcast('scroll.refreshComplete');
     })
   };
